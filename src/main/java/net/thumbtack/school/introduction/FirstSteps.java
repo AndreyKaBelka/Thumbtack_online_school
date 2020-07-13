@@ -30,52 +30,67 @@ class FirstSteps {
     }
 
     public int sum(int[] array) {
-        int r = 0;
-        for (int value : array) r += value;
-        return r;
+        int temp = 0;
+        for (int value : array) {
+            temp += value;
+        }
+        return temp;
+
     }
 
     public int mul(int[] array) {
-        int r = 1;
-        for (int value : array) r *= value;
-        if (r == 1)
-            r = 0;
-        return r;
+        int temp = 1;
+        for (int value : array) {
+            temp *= value;
+        }
+        if (temp == 1) {
+            temp = 0;
+        }
+        return temp;
     }
 
     public int min(int[] array) {
         int smallest = Integer.MAX_VALUE;
-        for (int value : array)
-            if (value < smallest)
+        for (int value : array) {
+            if (value < smallest) {
                 smallest = value;
+            }
+        }
         return smallest;
     }
 
     public int max(int[] array) {
         int largest = Integer.MIN_VALUE;
-        for (int value : array)
-            if (value > largest)
+        for (int value : array) {
+            if (value > largest) {
                 largest = value;
+            }
+        }
         return largest;
     }
 
     public double average(int[] array) {
-        float s = 0;
-        for (int value : array) s = s + value;
-        return (array.length == 0) ? 0.0 : s / array.length;
+        float temp = 0;
+        for (int value : array) {
+            temp = temp + value;
+        }
+        return (array.length == 0) ? 0.0 : temp / array.length;
     }
 
     public boolean isSortedDescendant(int[] array) {
         for (int i = 1; i < array.length; i++) {
-            if (array[i] >= array[i - 1])
-                return false;
+            {
+                if (array[i] >= array[i - 1])
+                    return false;
+            }
         }
         return true;
     }
 
     public void cube(int[] array) {
-        for (int i = 0; i < array.length; i++)
+        for (int i = 0; i < array.length; i++) {
             array[i] = array[i] * array[i] * array[i];
+        }
     }
 
     public boolean find(int[] array, int value) {
@@ -97,26 +112,27 @@ class FirstSteps {
     }
 
     public boolean isPalindrome(int[] array) {
-        for (int i = 0; i < array.length / 2; i++)
-            if (array[i] != array[array.length - i - 1])
+        for (int i = 0; i < array.length / 2; i++) {
+            if (array[i] != array[array.length - i - 1]) {
                 return false;
+            }
+        }
         return true;
     }
 
     public int sum(int[][] matrix) {
-        int s = 0;
+        int temp = 0;
         for (int[] ints : matrix) {
-            for (int anInt : ints) s = s + anInt;
+            temp += sum(ints);
         }
-        return s;
+        return temp;
     }
 
     public int max(int[][] matrix) {
         int largest = Integer.MIN_VALUE;
         for (int[] ints : matrix) {
-            for (int anInt : ints) {
-                if (anInt > largest)
-                    largest = anInt;
+            if (largest < max(ints)) {
+                largest = max(ints);
             }
         }
         return largest;
@@ -124,10 +140,14 @@ class FirstSteps {
 
     public int diagonalMax(int[][] matrix) {
         int largest = Integer.MIN_VALUE;
-        if (matrix.length == 1) return Integer.MIN_VALUE;
-        for (int i = 0; i < matrix.length; i++)
-            if (matrix[i][i] > largest)
+        if (matrix.length == 1) {
+            return Integer.MIN_VALUE;
+        }
+        for (int i = 0; i < matrix.length; i++) {
+            if (matrix[i][i] > largest) {
                 largest = matrix[i][i];
+            }
+        }
         return largest;
     }
 
@@ -135,8 +155,9 @@ class FirstSteps {
         int lenght = 0;
         int counter = 0;
         for (int[] ints : matrix) {
-            if (isSortedDescendant(ints))
+            if (isSortedDescendant(ints)) {
                 counter++;
+            }
             lenght++;
         }
         return lenght == counter;
