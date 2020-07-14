@@ -16,11 +16,11 @@ public class Rectangle {
     }
 
     Rectangle(int length, int width) {
-        this(new Point2D(length, 0), new Point2D(0, -width));
+        this(new Point2D(0, -width), new Point2D(length, 0));
     }
 
     Rectangle() {
-        this(new Point2D(1, 0), new Point2D(0, -1));
+        this(new Point2D(0, -1), new Point2D(1, 0));
     }
 
     public Point2D getTopLeft() {
