@@ -6,20 +6,20 @@ public class Rectangle {
     private Point2D leftTop;
     private Point2D rightBottom;
 
-    Rectangle(Point2D leftTop, Point2D rightBottom) {
+    public Rectangle(Point2D leftTop, Point2D rightBottom) {
         this.rightBottom = rightBottom;
         this.leftTop = leftTop;
     }
 
-    Rectangle(int xLeft, int yTop, int xRight, int yBottom) {
+    public Rectangle(int xLeft, int yTop, int xRight, int yBottom) {
         this(new Point2D(xLeft, yTop), new Point2D(xRight, yBottom));
     }
 
-    Rectangle(int length, int width) {
+    public Rectangle(int length, int width) {
         this(new Point2D(0, -width), new Point2D(length, 0));
     }
 
-    Rectangle() {
+    public Rectangle() {
         this(new Point2D(0, -1), new Point2D(1, 0));
     }
 
