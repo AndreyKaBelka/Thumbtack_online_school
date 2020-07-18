@@ -41,7 +41,7 @@ public class StringOperations {
     }
 
     public static boolean isEqualIgnoreCase(String string1, String string2) {
-        return string1.equalsIgnoreCase(string2);
+        return isEqual(string1.toLowerCase(), string2.toLowerCase());
     }
 
     public static boolean isLess(String string1, String string2) {
@@ -49,7 +49,7 @@ public class StringOperations {
     }
 
     public static boolean isLessIgnoreCase(String string1, String string2) {
-        return string1.compareToIgnoreCase(string2) < 0;
+        return isLess(string1.toLowerCase(), string2.toLowerCase());
     }
 
     public static String concat(String string1, String string2) {
@@ -65,16 +65,17 @@ public class StringOperations {
     }
 
     public static String getCommonPrefix(String string1, String string2) {
-        StringBuilder commPref = new StringBuilder("");
+        int counter = 0;
 
         for (int i = 0; i < Math.min(string1.length(), string2.length()); i++) {
             if (string1.charAt(i) == string2.charAt(i)) {
-                commPref.append(string1.charAt(i));
+                counter++;
             } else {
                 break;
             }
         }
-        return commPref.toString();
+
+        return string1.substring(0, counter);
     }
 
     public static String reverse(String string) {
@@ -86,7 +87,7 @@ public class StringOperations {
     }
 
     public static boolean isPalindromeIgnoreCase(String string) {
-        return string.equalsIgnoreCase(reverse(string));
+        return isPalindrome(string.toLowerCase());
     }
 
     public static String getLongestPalindromeIgnoreCase(String[] strings) {
@@ -106,7 +107,7 @@ public class StringOperations {
             String string11 = string1.substring(index, index + length);
             String string21 = string2.substring(index, index + length);
             return string11.equals(string21);
-        } catch (StringIndexOutOfBoundsException ignore){
+        } catch (StringIndexOutOfBoundsException ignore) {
             return false;
         }
     }
@@ -128,41 +129,40 @@ public class StringOperations {
     }
 
     public static String makeCsvStringFromInts(int[] array) {
-        if (array == null || Arrays.equals(array, new int[]{})) return "";
+        return makeCsvStringBuilderFromInts(array).toString();
+    }
+
+    public static String makeCsvStringFromDoubles(double[] array) {
+        return makeCsvStringBuilderFromDoubles(array).toString();
+    }
+
+    public static StringBuilder makeCsvStringBuilderFromInts(int[] array) {
+        if (array == null || Arrays.equals(array, new int[]{})) return new StringBuilder("");
         StringBuilder string = new StringBuilder("");
         for (int var : array) {
             string.append(var).append(",");
         }
 
-        return string.deleteCharAt(string.length() - 1).toString();
+        return string.deleteCharAt(string.length() - 1);
     }
 
-    public static String makeCsvStringFromDoubles(double[] array) {
-        if (array == null || Arrays.equals(array, new double[]{})) return "";
+    public static StringBuilder makeCsvStringBuilderFromDoubles(double[] array) {
+        if (array == null || Arrays.equals(array, new double[]{})) return new StringBuilder("");
         StringBuilder string = new StringBuilder("");
         for (double var : array) {
             string.append(String.format("%.2f", var)).append(",");
         }
 
-        return string.deleteCharAt(string.length() - 1).toString();
-    }
-
-    public static StringBuilder makeCsvStringBuilderFromInts(int[] array) {
-        return new StringBuilder(makeCsvStringFromInts(array));
-    }
-
-    public static StringBuilder makeCsvStringBuilderFromDoubles(double[] array) {
-        return new StringBuilder(makeCsvStringFromDoubles(array));
+        return string.deleteCharAt(string.length() - 1);
     }
 
     public static StringBuilder removeCharacters(String string, int[] positions) {
         StringBuilder stringBuilder = new StringBuilder(string);
+        int cnt = 0;
 
         for (int position : positions) {
-            stringBuilder.deleteCharAt(position);
-            for (int i = 0; i < positions.length; i++) {
-                positions[i] -= 1;
-            }
+            stringBuilder.deleteCharAt(position - cnt);
+            cnt++;
         }
 
         return stringBuilder;
@@ -170,12 +170,11 @@ public class StringOperations {
 
     public static StringBuilder insertCharacters(String string, int[] positions, char[] characters) {
         StringBuilder stringBuilder = new StringBuilder(string);
+        int cnt = 0;
 
         for (int i = 0; i < positions.length; i++) {
-            stringBuilder.insert(positions[i], characters[i]);
-            for (int j = 0; j < positions.length; j++) {
-                positions[j] += 1;
-            }
+            stringBuilder.insert(positions[i] + cnt, characters[i]);
+            cnt++;
         }
 
         return stringBuilder;

@@ -30,8 +30,8 @@ public class NumberOperations {
 
     public static Integer find(BigInteger[] array, BigInteger value) {
         int i = 0;
-        for (BigInteger val : array) {
-            if (val.equals(value)) {
+        for (int j = 0; j < array.length; j++) {
+            if (array[i].equals(value)) {
                 return i;
             }
             i++;
