@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Rectangle3D extends Rectangle {
     private int height;
 
-    Rectangle3D(Point2D leftTop, Point2D rightBottom, int height, Color color) throws ColorException {
+    public Rectangle3D(Point2D leftTop, Point2D rightBottom, int height, Color color) throws ColorException {
         super(leftTop, rightBottom, color);
         this.height = height;
     }
