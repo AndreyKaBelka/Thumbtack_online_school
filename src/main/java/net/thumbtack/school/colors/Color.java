@@ -9,6 +9,10 @@ public enum Color {
         if (colorString == null || colorString.equals("")) {
             throw new ColorException(ColorErrorCode.NULL_COLOR);
         }
-        return Color.valueOf(colorString);
+        try {
+            return Color.valueOf(colorString);
+        } catch (IllegalArgumentException ignored) {
+            throw new ColorException(ColorErrorCode.WRONG_COLOR_STRING);
+        }
     }
 }
