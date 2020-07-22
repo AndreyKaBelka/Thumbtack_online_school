@@ -21,7 +21,7 @@ public class MatrixNonSimilarRows {
     }
 
     public Set<int[]> getNonSimilarRows() {
-        int max, i;
+        int min, i;
         ArrayList<Integer> rows = new ArrayList<>();
         for (int h = 0; h < matrixSetOfNumber.size(); h++) {
             rows.add(h);
@@ -31,10 +31,9 @@ public class MatrixNonSimilarRows {
         do {
             i = 0;
             toRemove.add(i);
-            max = rows.get(i);
+            min = rows.get(i);
             for (int j = i + 1; j < matrixSetOfNumber.size(); j++) {
                 if (matrixSetOfNumber.get(i).equals(matrixSetOfNumber.get(j))) {
-                    max = rows.get(j);
                     toRemove.add(j);
                 }
             }
@@ -46,7 +45,7 @@ public class MatrixNonSimilarRows {
                 }
             }
             toRemove.clear();
-            answer.add(matrix[max]);
+            answer.add(matrix[min]);
         } while (!matrixSetOfNumber.isEmpty());
         return answer;
     }
