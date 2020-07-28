@@ -91,59 +91,25 @@ public class Group {
     }
 
     public List<Trainee> getTraineesWithMaxRating() throws TrainingException {
-        ArrayList<Trainee> traineesWith5 = new ArrayList<>();
-        ArrayList<Trainee> traineesWith4 = new ArrayList<>();
-        ArrayList<Trainee> traineesWith3 = new ArrayList<>();
-        ArrayList<Trainee> traineesWith2 = new ArrayList<>();
-        ArrayList<Trainee> traineesWith1 = new ArrayList<>();
-        for (int i = 0; i < trainees.size(); i++) {
-            switch (trainees.get(i).getRating()) {
-                case 5: {
-                    traineesWith5.add(trainees.get(i));
-                    break;
-                }
-                case 4: {
-                    traineesWith4.add(trainees.get(i));
-                    break;
-                }
-                case 3: {
-                    traineesWith3.add(trainees.get(i));
-                    break;
-                }
-                case 2: {
-                    traineesWith2.add(trainees.get(i));
-                    break;
-                }
-                case 1: {
-                    traineesWith1.add(trainees.get(i));
-                    break;
-                }
+        ArrayList<Trainee> traineeWithMaxRating = new ArrayList<>();
+        int maxRating = 0;
+        for (Trainee trainee : trainees) {
+            if (maxRating < trainee.getRating()) {
+                maxRating = trainee.getRating();
+                traineeWithMaxRating.clear();
+                traineeWithMaxRating.add(trainee);
+            } else if (maxRating == trainee.getRating()) {
+                traineeWithMaxRating.add(trainee);
             }
         }
-        if (!traineesWith5.isEmpty()) {
-            return traineesWith5;
-        } else if (!traineesWith4.isEmpty()) {
-            return traineesWith4;
-        } else if (!traineesWith3.isEmpty()) {
-            return traineesWith3;
-        } else if (!traineesWith2.isEmpty()) {
-            return traineesWith2;
-        } else if (!traineesWith1.isEmpty()) {
-            return traineesWith1;
-        } else {
+        if (traineeWithMaxRating.isEmpty()) {
             throw new TrainingException(TrainingErrorCode.TRAINEE_NOT_FOUND);
         }
+        return traineeWithMaxRating;
     }
 
     public boolean hasDuplicates() {
-        for (int i = 0; i < trainees.size() - 1; i++) {
-            for (int j = i + 1; j < trainees.size(); j++) {
-                if (trainees.get(i).equals(trainees.get(j))) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return new HashSet<>(trainees).size() != trainees.size();
     }
 
     @Override

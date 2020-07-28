@@ -36,9 +36,6 @@ public class FileService {
     }
 
     public static byte[] writeAndReadByteArrayUsingByteStream(byte[] array) throws IOException {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byteArrayOutputStream.write(array);
-        array = byteArrayOutputStream.toByteArray();
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(array);
         byte[] ret = new byte[array.length / 2];
         for (int i = 0; i < ret.length; i++) {
@@ -100,14 +97,19 @@ public class FileService {
     }
 
     public static Rectangle[] readRectangleArrayFromBinaryFileReverse(File file) throws IOException, ColorException {
+        RandomAccessFile raf = new RandomAccessFile(file, "r");
         ArrayList<Rectangle> rectangles = new ArrayList<>();
         try (DataInputStream dataInputStream = new DataInputStream(new FileInputStream(file))) {
             while (dataInputStream.available() > 0) {
                 rectangles.add(new Rectangle(new Point2D(dataInputStream.readInt(), dataInputStream.readInt()), new Point2D(dataInputStream.readInt(), dataInputStream.readInt()), "RED"));
             }
+        } catch (IOException e){
+            throw new IOException();
         }
+        raf.close();
         Collections.reverse(rectangles);
         return rectangles.toArray(new Rectangle[0]);
+
     }
 
     public static void writeRectangleToTextFileOneLine(File file, Rectangle rectangle) throws IOException {
